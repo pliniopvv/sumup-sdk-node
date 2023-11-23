@@ -1,4 +1,4 @@
-# SDK de Pagamento utilizando a SumUp
+# SDK Node.JS para SumUp
 [Documentação](https://developer.sumup.com/online-payments/introduction/get-started)
 
 ## Configuração
@@ -7,7 +7,8 @@ Crie um arquivo `.env` com as seguintes entradas:
 ````properties
 CLIENT_ID= 
 CLIENT_SECRET=
-
+PUBLIC_KEY=
+REDIRECT_URI=
 ````
 ## Dependências:
 
@@ -28,4 +29,6 @@ Após registrar a aplicação, crie um `client secret`
 
 ![Create Client Secret](/.readme/create-client-secret.png)
 
-Comple
+Realize o download do arquivo gerado e nele consta as configurações `CLIENT_ID` e `CLIENT_SECRET` e então crie uma API Key Pública [aqui](https://developer.sumup.com/api-keys/) e configure o token da entrada `PUBLIC_KEY`
+
+![Create API Key](/.readme/create-api-key.png)
