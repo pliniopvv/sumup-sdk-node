@@ -8,5 +8,6 @@ Crie um arquivo `.env` com as seguintes entradas:
 
 ## Dependências:
 
-- TypeScript v5.3.2
 - Dotenv v16.3.1
+- [dev] TypeScript v5.3.2
+- [dev] ts-node-dev 2.0.0
