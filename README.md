@@ -11,3 +11,4 @@ Crie um arquivo `.env` com as seguintes entradas:
 - Dotenv v16.3.1
 - [dev] TypeScript v5.3.2
 - [dev] ts-node-dev 2.0.0
+- [dev] jest 29.7.0 & ts-jest 29.1.1
