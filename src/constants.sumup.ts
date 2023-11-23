@@ -1,5 +1,7 @@
 /**
  *  SumUp Constantes Configuration
  */
-export const URL_API = "api.sumup.com";
+const BaseUrl = `https://api.sumup.com`;
+export const URL_API = `${BaseUrl}`;
+export const URL_SUMUP_ME = `${BaseUrl}/v0.1/me`;
 
