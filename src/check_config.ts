@@ -19,9 +19,7 @@ d(process.env.CLIENT_SECRET == undefined ? false : true, "CLIENT_SECRET");
 d(process.env.PUBLIC_KEY == undefined ? false : true, "PUBLIC_KEY");
 
 let sumup = new SumUp();
-/**
- * Teste /me
- */
+
 d("> Verificando conexões com a API");
 // sumup.me().then(r => d(r));
 d(res == undefined ? false : true , URL_SUMUP_ME);
@@ -35,7 +33,7 @@ d('Se tudo for = true, a API está pronta para uso!');
         "pay_to_email": "docuser@sumup.com",
         "description": "Sample one-time payment"
       }
-      curl -X POST https://api.sumup.com/v0.1/checkouts -H "Authorization: Bearer sup_sk_8LFM1KGVApXDJe6aPCNit69pKsSvyG32G" -H "Content-Type: application/json" -d "{ \"checkout_reference\": \"CO746453\", \"amount\": 10, \"currency\": \"BRL\", \"pay_to_email\": \"6240cd8ed1d441a08562d6d471049919@developer.sumup.com\", \"description\": \"Sample one-time payment\" }"
+      curl -X POST https://api.sumup.com/v0.1/checkouts -H "Authorization: Bearer sup_sk_8Lx" -H "Content-Type: application/json" -d "{ \"checkout_reference\": \"CO746453\", \"amount\": 10, \"currency\": \"BRL\", \"pay_to_email\": \"6240cd8ed1d441a08562d6d471049919@developer.sumup.com\", \"description\": \"Sample one-time payment\" }"
      */
 let _checkout: CheckoutMinimal = {
   currency: "BRL",
