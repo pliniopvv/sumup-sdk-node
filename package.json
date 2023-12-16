@@ -13,9 +13,12 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "axios": "^1.6.2",
     "client-oauth2": "^4.3.3",
+    "colors": "^1.4.0",
     "dotenv": "^16.3.1",
-    "request": "^2.88.2"
+    "request": "^2.88.2",
+    "ts-retrofit": "^1.19.0"
   },
   "devDependencies": {
     "@types/jest": "^29.5.10",
