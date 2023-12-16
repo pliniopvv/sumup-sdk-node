@@ -1,6 +1,5 @@
-import * as dotenv from "dotenv";
-import SumUp from "./components/SumUp";
 import { URL_SUMUP_ME } from "./constants.sumup";
+import SumUp from "./components/SumUp";
 import {
   CheckoutMinimal,
   OpenCheckoutResponse,
@@ -8,6 +7,7 @@ import {
   PaymentType,
   PaymentResponse,
 } from "./components/Models";
+import * as dotenv from "dotenv";
 dotenv.config({ path: ".env" });
 
 let res;
@@ -24,7 +24,8 @@ let sumup = new SumUp();
  */
 d("> Verificando conexões com a API");
 // sumup.me().then(r => d(r));
-// d(res == undefined ? false : true , URL_SUMUP_ME);
+d(res == undefined ? false : true , URL_SUMUP_ME);
+d('Se tudo for = true, a API está pronta para uso!');
 
 /**
      * {
@@ -38,8 +39,8 @@ d("> Verificando conexões com a API");
      */
 let _checkout: CheckoutMinimal = {
   currency: "BRL",
-  amount: 10.0,
-  checkout_reference: "REF0000010",
+  amount: 13.50,
+  checkout_reference: "REF0000012",
   pay_to_email: "6240cd8ed1d441a08562d6d471049919@developer.sumup.com",
   description: "Descrição de uma venda.",
 };
@@ -59,11 +60,11 @@ sumup.openCheckout(_checkout).then((checkout: OpenCheckoutResponse) => {
   let payment: PaymentDetails = {
     checkoutId: checkout.id,
     card: {
-      number: "4200000000000042",
+      number: "5163694212072013",
       name: "Boaty McBoatface",
-      cvv: "123",
-      expiry_month: "12",
-      expiry_year: "12",
+      cvv: "323",
+      expiry_month: "10",
+      expiry_year: "24",
     },
     payment_type: PaymentType.card,
   };

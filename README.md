@@ -32,3 +32,44 @@ Após registrar a aplicação, crie um `client secret`
 Realize o download do arquivo gerado e nele consta as configurações `CLIENT_ID` e `CLIENT_SECRET` e então crie uma API Key Pública [aqui](https://developer.sumup.com/api-keys/) e configure o token da entrada `PUBLIC_KEY`
 
 ![Create API Key](/.readme/create-api-key.png)
+
+## Exemplo de uso:
+
+````typescript
+import SumUp from "./components/SumUp";
+import {
+  CheckoutMinimal,
+  OpenCheckoutResponse,
+  PaymentDetails,
+  PaymentType,
+  PaymentResponse,
+} from "./components/Models";
+import * as dotenv from "dotenv";
+dotenv.config({ path: ".env" });
+
+let sumup = new SumUp();
+
+let _checkout: CheckoutMinimal = {
+  currency: "BRL",
+  amount: 10.0,
+  checkout_reference: "REF0000011",
+  pay_to_email: "6240cd8ed1d441a08562d6d471049919@developer.sumup.com",
+  description: "Descrição de uma venda.",
+};
+sumup.openCheckout(_checkout).then((checkout: OpenCheckoutResponse) => {
+  let payment: PaymentDetails = {
+    checkoutId: checkout.id,
+    card: {
+      number: "5163694212072013",
+      name: "Boaty McBoatface",
+      cvv: "323",
+      expiry_month: "10",
+      expiry_year: "24",
+    },
+    payment_type: PaymentType.card,
+  };
+  sumup.processCheckout(payment).then((response: PaymentResponse) => {
+    return d(response);
+  });
+});
+````
