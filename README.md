@@ -5,10 +5,12 @@
 Crie um arquivo `.env` com as seguintes entradas:
 
 ````properties
-CLIENT_ID= 
+TOKEN_KEY=
+CLIENT_ID=
 CLIENT_SECRET=
-PUBLIC_KEY=
 REDIRECT_URI=
+
+VERBOSE=true # < habilita o console.log para debug;
 ````
 ## Dependências:
 
