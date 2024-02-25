@@ -9,4 +9,8 @@ export const URL_SUMUP_OPENCHECKOUT = `${BaseUrl}/v0.1/checkouts`;
 export const URL_SUMUP_PROCESSCHECKOUT = (id: string) => `${URL_SUMUP_OPENCHECKOUT}/${id}`;
 export const URL_SUMUP_TOKEN = `${BaseUrl}/token`;
 
+export const URL_SUMUP_LISTCHECKOUT = `${BaseUrl}/v0.1/checkouts`;
+
+export const URL_SUMUP_LISTTRANSACTION = `${BaseUrl}/v0.1/me/transactions/history`;
+
 export const URL_REDIRECT_BASE = `http://localhost:8080`;

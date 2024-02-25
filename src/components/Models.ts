@@ -6,7 +6,16 @@ export class CheckoutMinimal {
   description?: string;
 }
 
-export class OpenCheckoutResponse {
+export class Checkout {
+  checkout_reference: string;
+  amount: number;
+  currency: string = "BRL";
+  pay_to_email: string;
+  description?: string;
+  personal_details: PersonalDetails;
+}
+
+export class OpenedCheckoutResponse {
   checkout_reference: string;
   amount: number;
   currency: string;
@@ -130,9 +139,9 @@ export interface RetrieveCheckoutResponse {
 }
 
 export interface PaymentDetails {
-  checkoutId: string;
+  // checkoutId: string;
   payment_type: PaymentType;
-  card: Card;
+  card?: Card;
 }
 
 export enum PaymentType {
@@ -159,4 +168,111 @@ export interface Mandate {
 
 export interface PaymentInstrument {
   token: string;
+}
+
+export interface ListCheckout {
+  amount: number;
+  checkoutReference: string;
+  currency: string;
+  customerID: string;
+  date: Date;
+  description: string;
+  id: string;
+  mandate: Mandate;
+  merchantCode: string;
+  payToEmail: string;
+  returnURL: null;
+  status: null;
+  transactions: Transaction[];
+  validUntil: Date;
+  merchantName: string;
+  paymentInstrument: PaymentInstrument;
+  redirectURL: string;
+  transactionCode: string;
+  transactionID: string;
+}
+
+export interface Mandate {
+  merchantCode: string;
+  status: string;
+  type: string;
+}
+
+export interface PaymentInstrument {
+  token: string;
+}
+
+export interface ListTransaction {
+  items: Item[];
+  links: Link[];
+}
+
+export interface Item {
+  amount: number;
+  currency: string;
+  id: string;
+  installmentsCount: null;
+  paymentType: null;
+  status: null;
+  timestamp: Date;
+  transactionCode: string;
+  payoutPlan: null;
+  payoutsReceived: null;
+  payoutsTotal: null;
+  productSummary: null;
+  cardType: null;
+  transactionID: null;
+  type: null;
+  user: null;
+}
+
+export interface Link {
+  href: null;
+  rel: null;
+  type: null;
+}
+
+export interface PersonalDetails {
+  adress: Adress;
+  email: string;
+  first_name: string;
+  last_name: string;
+  tax_id: string;
+}
+export interface Adress {
+  city: string;
+  coutry: string;
+  line_1: string;
+  postal_code: string;
+  state: State;
+}
+
+export enum State {
+  AC = "AC",
+  AL = "AL",
+  AP = "AP",
+  AM = "AM",
+  BA = "BA",
+  CE = "CE",
+  DF = "DF",
+  ES = "ES",
+  GO = "GO",
+  MA = "MA",
+  MT = "MT",
+  MS = "MS",
+  MG = "MG",
+  PA = "PA",
+  PB = "PB",
+  PR = "PR",
+  PE = "PE",
+  PI = "PI",
+  RJ = "RJ",
+  RN = "RN",
+  RS = "RS",
+  RO = "RO",
+  RR = "RR",
+  SC = "SC",
+  SP = "SP",
+  SE = "SE",
+  TO = "TO",
 }

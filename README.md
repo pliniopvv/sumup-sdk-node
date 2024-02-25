@@ -41,7 +41,7 @@ Realize o download do arquivo gerado e nele consta as configurações `CLIENT_ID
 import SumUp from "./components/SumUp";
 import {
   CheckoutMinimal,
-  OpenCheckoutResponse,
+  OpenedCheckoutResponse,
   PaymentDetails,
   PaymentType,
   PaymentResponse,
@@ -58,7 +58,7 @@ let _checkout: CheckoutMinimal = {
   pay_to_email: "6240cd8ed1d441a08562d6d471049919@developer.sumup.com",
   description: "Descrição de uma venda.",
 };
-sumup.openCheckout(_checkout).then((checkout: OpenCheckoutResponse) => {
+sumup.openCheckout(_checkout).then((checkout: OpenedCheckoutResponse) => {
   let payment: PaymentDetails = {
     checkoutId: checkout.id,
     card: {
