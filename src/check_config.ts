@@ -4,7 +4,6 @@ import { config } from 'dotenv';
 config();
 
 //curl -X POST https://api.sumup.com/v0.1/checkouts -H "Authorization: Bearer sup_sk_8L" -H "Content-Type: application/json" -d "{ \"checkout_reference\": \"CO746453\", \"amount\": 10, \"currency\": \"BRL\", \"pay_to_email\": \"6240cd8ed1d441a08562d6d471049919@developer.sumup.com\", \"description\": \"Sample one-time payment\" }"
-console.log(process.env.TOKEN_KEY);
 let sumup = new SumUp(process.env.TOKEN_KEY);
 
 let item: CheckoutMinimal = {
@@ -31,7 +30,7 @@ let personal_details: PersonalDetails = {
 let itemfetlock: Checkout = {
   currency: "BRL",
   amount: 22.22,
-  checkout_reference: "REF0000047",
+  checkout_reference: "REF0000049",
   pay_to_email: "6240cd8ed1d441a08562d6d471049919@developer.sumup.com",
   description: "Descrição de uma venda.",
   personal_details
@@ -52,19 +51,19 @@ let card: Card = {
   cvv: "989",
 };
 
-sumup
-  .makeSell(item)
-  .payWithCard(card)
-  .then(
-    (resp) => console.log(resp) // true or false
-  );
-
 // sumup
-//   .makeSell(itemfetlock)
-//   .payWithFetlock()
+//   .makeSell(item)
+//   .payWithCard(card)
 //   .then(
 //     (resp) => console.log(resp) // true or false
 //   );
+
+sumup
+  .makeSell(itemfetlock)
+  .payWithFetlock()
+  .then(
+    (resp) => console.log(resp) // true or false
+  );
 
 // sumup.transactions().then((list) => {
 //   console.table(list.items);

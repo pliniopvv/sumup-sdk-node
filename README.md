@@ -37,6 +37,19 @@ Realize o download do arquivo gerado e nele consta as configurações `CLIENT_ID
 
 ## Exemplo de uso:
 
+`.env`
+```javascript
+TOKEN_KEY=
+CLIENT_ID=
+CLIENT_SECRET=
+REDIRECT_URI=
+
+EMAIL_SumUp=
+PASSWORD_TEST=
+
+VERBOSE=
+```
+
 ````typescript
 import SumUp from "./components/SumUp";
 import {
