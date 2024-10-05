@@ -49,29 +49,53 @@ import {
 import * as dotenv from "dotenv";
 dotenv.config({ path: ".env" });
 
-let sumup = new SumUp();
+let sumup = new SumUp(process.env.TOKEN_KEY);
 
-let _checkout: CheckoutMinimal = {
+let item: CheckoutMinimal = {
   currency: "BRL",
-  amount: 10.0,
-  checkout_reference: "REF0000011",
+  amount: 22.22,
+  checkout_reference: "REF0000048",
   pay_to_email: "6240cd8ed1d441a08562d6d471049919@developer.sumup.com",
   description: "Descrição de uma venda.",
 };
-sumup.openCheckout(_checkout).then((checkout: OpenedCheckoutResponse) => {
-  let payment: PaymentDetails = {
-    checkoutId: checkout.id,
-    card: {
-      number: "5163694212072013",
-      name: "Boaty McBoatface",
-      cvv: "323",
-      expiry_month: "10",
-      expiry_year: "24",
-    },
-    payment_type: PaymentType.card,
-  };
-  sumup.processCheckout(payment).then((response: PaymentResponse) => {
-    return d(response);
-  });
-});
+
+let card: Card = {
+  name: "Joana 4Devs",
+  number: "5389742334489595",
+  expiry_month: "11",
+  expiry_year: "25",
+  cvv: "989",
+};
+
+// cobrança do cartão
+sumup
+  .makeSell(item)
+  .payWithCard(card)
+  .then(
+    (resp) => console.log(resp) // true or false
+  );
+
+let personal_details: PersonalDetails = {
+  first_name: "Fábio Leonardo",
+  last_name: "da Conceição",
+  email: "fabioleonardodaconceicao@mantegassi.com",
+  tax_id: "314.566.526-05",
+  adress
+}
+let itemfetlock: Checkout = {
+  currency: "BRL",
+  amount: 22.22,
+  checkout_reference: "REF0000047",
+  pay_to_email: "6240cd8ed1d441a08562d6d471049919@developer.sumup.com",
+  description: "Descrição de uma venda.",
+  personal_details
+};
+
+// cobrança no boleto | opção indisponível no teste.
+sumup
+  .makeSell(itemfetlock)
+  .payWithFetlock()
+  .then(
+    (resp) => console.log(resp) // true or false
+  );
 ````

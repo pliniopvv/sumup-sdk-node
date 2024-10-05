@@ -57,12 +57,18 @@ class SumUp {
       payment_type: PaymentType.card,
       card,
     };
-    let _resp = await this._processCheckout(resp.id, payment);
-    
-    if (_resp.status == 'FAILED')
-      return false;
-    
-    return true;
+    try {
+      let _resp = await this._processCheckout(resp.id, payment);
+
+      if (_resp.status == 'FAILED')
+        return false;
+
+      return true;
+    } catch (ex) {
+      // @ts-ignore
+      console.log(ex.response.data)
+    }
+    return false;
   }
 
   async payWithFetlock(): Promise<Boolean> {
@@ -73,6 +79,7 @@ class SumUp {
     let payment: PaymentDetails = {
       payment_type: PaymentType.boleto,
     };
+
     await this._processCheckout(resp.id, payment);
 
     return true;
@@ -91,7 +98,10 @@ class SumUp {
         .then((r) => {
           res(r.data);
         })
-        .catch((e) => rej(e));
+        .catch((e) => {
+          console.error(e.response.data);
+          rej(e)
+        });
     });
   }
 
@@ -110,7 +120,10 @@ class SumUp {
         .then((r) => {
           res(r.data);
         })
-        .catch((e) => rej(e));
+        .catch((e) => {
+          console.log(e.response.data);
+          rej(e)
+        });
     });
   }
 
