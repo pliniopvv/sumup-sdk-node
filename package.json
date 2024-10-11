@@ -1,10 +1,11 @@
 {
   "name": "sumup-sdk-node",
-  "version": "1.0.2",
+  "version": "1.0.4",
   "description": "",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.js",
   "scripts": {
-    "build": "tsc",
+    "build": "tsc --declaration",
     "watch": "ts-node-dev --respawn --transpile-only src/index.ts",
     "test": "npx jest",
     "test:2": "ts-node-dev src/check_config.ts"
@@ -13,12 +14,13 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@types/node": "^12.12.14",
     "axios": "^1.6.2",
     "dotenv": "^16.4.5",
-    "sumup-sdk-node": "file:"
+    "sumup-sdk-node": "file:",
+    "typescript": "^5.3.2"
   },
   "devDependencies": {
-    "ts-node-dev": "^2.0.0",
-    "typescript": "^5.3.2"
+    "ts-node-dev": "^2.0.0"
   }
 }

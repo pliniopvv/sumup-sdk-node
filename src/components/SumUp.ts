@@ -22,6 +22,7 @@ class SumUp {
   TOKEN_KEY: String;
 
   _openedCheckout: Promise<OpenedCheckoutResponse> | null;
+  _idCheckout: string | null;
 
   constructor(TOKEN_KEY: String) {
     this.TOKEN_KEY = TOKEN_KEY;
@@ -45,20 +46,28 @@ class SumUp {
 
   makeSell(checkout: CheckoutMinimal): SumUp {
     this._openedCheckout = this._openCheckout(checkout);
+    // .then((resp) => {
+    //   this._idCheckout = resp.id;
+    //   this._openedCheckout = resp;
+    // }).catch((error) => {
+    //   this._idCheckout = getIdCheckout(error);
+    // });
+
     return this;
   }
 
   async payWithCard(card: Card): Promise<Boolean> {
     if (!this._openedCheckout) throw Error("Checkout não iniciado");
 
-    let resp = await this._openedCheckout;
+    this._idCheckout = await this._runCheckout();
+    debug(this._idCheckout);
 
     let payment: PaymentDetails = {
       payment_type: PaymentType.card,
       card,
     };
     try {
-      let _resp = await this._processCheckout(resp.id, payment);
+      let _resp = await this._processCheckout(this._idCheckout, payment);
 
       if (_resp.status == 'FAILED')
         return false;
@@ -66,7 +75,7 @@ class SumUp {
       return true;
     } catch (ex) {
       // @ts-ignore
-      console.log(ex.response.data)
+      debug('payWithCard', ex.response.data)
     }
     return false;
   }
@@ -74,15 +83,25 @@ class SumUp {
   async payWithFetlock(): Promise<Boolean> {
     if (!this._openedCheckout) throw Error("Checkout não iniciado");
 
-    let resp = await this._openedCheckout;
+    this._idCheckout = await this._runCheckout();
 
     let payment: PaymentDetails = {
       payment_type: PaymentType.boleto,
     };
 
-    await this._processCheckout(resp.id, payment);
+    await this._processCheckout(this._idCheckout, payment);
 
     return true;
+  }
+
+  async _runCheckout() {
+    debug('_runCheckout - JOIN')
+    try {
+      const resp = await this._openedCheckout;
+      return resp.id;
+    } catch (error) {
+      return getIdCheckout(error);
+    }
   }
 
   _openCheckout(checkout: CheckoutMinimal): Promise<OpenedCheckoutResponse> {
@@ -99,7 +118,7 @@ class SumUp {
           res(r.data);
         })
         .catch((e) => {
-          console.error(e.response.data);
+          console.error('_openCheckout', e.response.data);
           rej(e)
         });
     });
@@ -121,7 +140,7 @@ class SumUp {
           res(r.data);
         })
         .catch((e) => {
-          console.log(e.response.data);
+          debug('_processCheckout.catch', e.response.data);
           rej(e)
         });
     });
@@ -160,3 +179,15 @@ class SumUp {
   }
 }
 export default SumUp;
+
+function debug(...msg: string[]) {
+  if (process.env.VERBOSE)
+    console.log(...msg);
+}
+
+function getIdCheckout(error: any) {
+  // @ts-ignore
+  const msg = error.response.data.message;
+  const id = msg.split(" ")[3];
+  return id;
+}
