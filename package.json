@@ -2,7 +2,8 @@
   "name": "sumup-sdk-node",
   "version": "1.0.2",
   "description": "",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsc",
     "watch": "ts-node-dev --respawn --transpile-only src/index.ts",
